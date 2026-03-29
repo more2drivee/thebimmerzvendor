@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'view' => 'السيارات',
+    'model' => 'موديل',
+    'color' => 'اللون',
+    'chassis' => 'رقم الشاسيه',
+    'plate' => 'رقم اللوحة',
+    'manufacturing' => 'سنة الصنع',
+    'device' => 'السياره',
+    'job' => 'أمر الشغل',
+    'jobNo' => 'رقم الشغل',
+    'location' => 'الموقع',
+    'brand' => 'البراند',
+    'status' => 'الحاله',
+    'addvehicle' => 'اضافه سياره',
+    'cartype' => 'نوع السياره',
+    'selectcartype' => 'اختار نوع السياره',
+    'selectmodel' => 'اختار الموديل',
+    'selectyear' => 'اختار السنه',
+    'selectbrand' => 'اختار براند',
+    'entervin' => 'ادخل رقم الشاسيه (17 حرف)',
+    'vin' => 'رقم الشاسيه',
+    'no_matched_brand' => 'لا يوجد براند مطابق',
+    'no_matched_model' => 'لا يوجد موديل مطابق',
+    'country' => 'بلد المنشأ',
+    'selectcountry' => 'اختر بلد المنشأ',
+];

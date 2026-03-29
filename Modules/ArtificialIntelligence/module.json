@@ -1,0 +1,11 @@
+{
+    "name": "ArtificialIntelligence",
+    "alias": "artificialintelligence",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ArtificialIntelligence\\Providers\\ArtificialIntelligenceServiceProvider"
+    ],
+    "files": []
+}

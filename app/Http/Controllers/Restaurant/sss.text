@@ -1,0 +1,147 @@
+[
+  {
+    "vin": "JF1GK3LC5JG007913",
+    "expected_result": {
+      "brand": "Subaru",
+      "model": "Impreza",
+      "year": 2018
+    }
+  },
+  {
+    "vin": "3N1AB8CV0PY219080",
+    "expected_result": {
+      "brand": "Nissan",
+      "model": "Sentra",
+      "year": 2023
+    }
+  },
+  {
+    "vin": "KNAGT4L30D5081234",
+    "expected_result": {
+      "brand": "Kia",
+      "model": "Optima",
+      "year": 2013
+    }
+  },
+  {
+    "vin": "1HGCM82633A123456",
+    "expected_result": {
+      "brand": "Honda",
+      "model": "Accord",
+      "year": 2003
+    }
+  },
+  {
+    "vin": "WBA3A9C50EK191234",
+    "expected_result": {
+      "brand": "BMW",
+      "model": "3 Series",
+      "year": 2014
+    }
+  }
+  //////////
+   {
+    "vin": "VSSKJAAAK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Arona",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSSKHBBBK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Ateca",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS6FCCCK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Ibiza",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS5FDDDK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Leon",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS5F8EEK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Leon ST",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSSKNFFFK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Tarraco",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS7NGGGK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Alhambra",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS5PHHHK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Altea",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS5P5IIK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Altea XL",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS3RJJJK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Exeo",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSS3R5KKK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Exeo ST",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSSZZZNHK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Toledo",
+      "year": 2019
+    }
+  },
+  {
+    "vin": "VSSAAMMMK12345678",
+    "expected_result": {
+      "brand": "Seat",
+      "model": "Mii",
+      "year": 2019
+    }
+  }
+]

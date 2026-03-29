@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+}
+@layer components {
+}
+@layer utilities {
+}
+
+.app-box {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 1rem;
+    /* background-color: #f8f9fa; */
+    padding: 0.25rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.o_apps_grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important; 
+    gap: 1.3rem;
+    justify-items: center;
+    align-items: start;
+}
+#toast-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification-toast {
+    width: 320px;
+    padding: 12px 14px;
+
+       background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.4);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    color: #111;
+
+    animation: slideDown 0.35s ease-out;
+    transition: all 0.3s ease;
+
+    cursor: pointer;
+}
+
+
+.notification-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notification-body {
+    font-size: 13px;
+    color: #444;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+            @keyframes skeleton-loading {
+                0% {
+                    background-color: #cac9c9;
+                }
+                50% {
+                    background-color: #dddcdc;
+                }
+                100% {
+                    background-color: #d1cece;
+                }
+            }
+
+            .skeleton-loader {
+                animation: skeleton-loading 1.5s infinite;
+                border-radius: 12px;
+            }
+
+            .skeleton-app-box {
+                width: 110px;
+                height: 110px;
+                border-radius: 20px;
+                margin-bottom: 1rem;
+                animation: skeleton-loading 1.5s infinite;
+            }
+
+            .skeleton-badge {
+                width: 150px;
+                height: 32px;
+                border-radius: 9999px;
+                margin-bottom: 1rem;
+                animation: skeleton-loading 1.5s infinite;
+            }
+
+            .skeleton-container {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 1.3rem;
+                justify-items: center;
+                align-items: start;
+                padding: 0;
+            }
+
+            .skeleton-section {
+                width: 100%;
+            }
+
+            .skeleton-section-wrapper {
+                display: none;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+            }
+
+            .skeleton-section-wrapper.show {
+                display: block;
+            }
+
+            /* #homepage-blur {
+    filter: blur(10px); 
+    opacity: 0.6;      
+    transition: all 0.6s ease;
+} */
+
+#homepage-blur.loaded {
+    filter: blur(0);
+    opacity: 1;
+}
+.home-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.home-section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+     .Productivity-app-box,
+.Operations-app-box,
+.Sales-app-box,
+.Finance-app-box,
+.Inventory-app-box,
+.Management-app-box,
+.Tools-app-box {
+    border-radius: 20px;
+    transition: all 0.35s ease;
+}
+
+.Productivity-app-box:hover,
+.Operations-app-box:hover,
+.Sales-app-box:hover,
+.Finance-app-box:hover,
+.Inventory-app-box:hover,
+.Management-app-box:hover,
+.Tools-app-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.Productivity-app-box:hover {
+    background: linear-gradient(135deg, rgba(165,66,215,0.35), rgba(165,66,215,0.15));
+}
+
+.Operations-app-box:hover {
+    background: linear-gradient(135deg, rgba(11,100,244,0.35), rgba(11,100,244,0.15));
+}
+
+.Sales-app-box:hover {
+    background: linear-gradient(135deg, rgba(34,195,93,0.35), rgba(34,195,93,0.15));
+}
+
+.Finance-app-box:hover {
+    background: linear-gradient(135deg, rgba(231,176,8,0.35), rgba(231,176,8,0.15));
+}
+
+.Inventory-app-box:hover {
+    background: linear-gradient(135deg, rgba(226,54,112,0.35), rgba(226,54,112,0.15));
+}
+
+.Management-app-box:hover {
+    background: linear-gradient(135deg, rgba(26,162,230,0.35), rgba(26,162,230,0.15));
+}
+
+.Tools-app-box:hover {
+    background: linear-gradient(135deg, rgba(244,123,37,0.35), rgba(244,123,37,0.15));
+}
+.o_caption{
+    font-family: 'Cairo', sans-serif !important;
+}
+.Productivity-app-box:hover i,
+.Productivity-app-box:hover .o_caption,
+.Operations-app-box:hover i,
+.Operations-app-box:hover .o_caption,
+.Sales-app-box:hover i,
+.Sales-app-box:hover .o_caption,
+.Finance-app-box:hover i,
+.Finance-app-box:hover .o_caption,
+.Inventory-app-box:hover i,
+.Inventory-app-box:hover .o_caption,
+.Management-app-box:hover i,
+.Management-app-box:hover .o_caption,
+.Tools-app-box:hover i,
+.Tools-app-box:hover .o_caption {
+    color: #fff !important;
+}
+.o_apps_grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important; 
+    gap: 1.3rem;
+    justify-items: center;
+    align-items: start;
+}
+
+
+
+.app-box {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1rem;
+    /* background-color: #f8f9fa; */
+    padding: 0.25rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.o_apps_grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important; 
+    gap: 1.3rem;
+    justify-items: center;
+    align-items: start;
+}
+
+.app-menu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;          
+    width: 100%;         
+    height: 100%;       
+    padding: 0.25rem;     
+    border-radius: 0.75rem; 
+}
+
+
+@media (min-width: 768px) {
+
+    .app-menu-item {
+        padding: 0.5rem;
+    }
+}
+@media (max-width: 768px) {
+    .o_apps_grid {
+    display: grid !important;
+    grid-template-columns: repeat(1, 1fr) !important; 
+    gap: 1.3rem;
+    justify-items: center;
+    align-items: start;
+}
+    .app-box {
+        width: 110px;
+        height: 95px;
+        margin-bottom: 1rem;
+        /* background-color: #f8f9fa; */
+        padding: 0.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+.header_top {
+    padding-bottom: 2rem !important;
+}
+}
+
+    
+.section-badge {
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 9999px;
+    padding: .375rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    width: 100%;
+    text-align:center;
+}
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    
+}
+

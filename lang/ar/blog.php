@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'blogs' => 'المدونات',
+    'manage_your_blogs' => 'إدارة مدوناتك',
+    'all_your_blogs' => 'جميع مدوناتك',
+    'added_success' => 'تمت إضافة المدونة بنجاح',
+    'updated_success' => 'تم تحديث المدونة بنجاح',
+    'deleted_success' => 'تم حذف المدونة بنجاح',
+    'add_blog' => 'إضافة مدونة',
+    'edit_blog' => 'تعديل المدونة',
+    'title' => 'العنوان',
+    'title_ar' => 'العنوان بالعربي',
+    'content' => 'المحتوى',
+    'content_ar' => 'المحتوى بالعربي',
+    'image' => 'الصورة',
+    'blog_date' => 'التاريخ',
+    'status' => 'الحالة',
+    'draft' => 'مسودة',
+    'published' => 'منشور',
+    'category' => 'الفئة',
+    'sub_category' => 'الفئة الفرعية',
+    'select_category' => 'اختر الفئة',
+    'select_sub_category' => 'اختر الفئة الفرعية',
+];

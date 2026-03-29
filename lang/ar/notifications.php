@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'notifications' => 'الإشعارات',
+    'unread' => 'غير المقروءة',
+    'total' => 'الإجمالي',
+    'search_placeholder' => 'ابحث في الإشعارات...',
+    'all' => 'الكل',
+    'pending' => 'قيد الانتظار',
+    'approved' => 'تمت الموافقة',
+    'rejected' => 'مرفوض',
+    'noNotifications' => 'لا توجد إشعارات',
+    'errorLoading' => 'حدث خطأ أثناء تحميل الإشعارات',
+    'noDataServer' => 'لا توجد بيانات من الخادم',
+    'reservation' => 'حجز',
+    'jobOrder' => 'أمر شغل',
+    'info' => 'معلومة',
+    'customer' => 'العميل',
+    'device' => 'الجهاز',
+    'location' => 'الموقع',
+    'note' => 'ملاحظة',
+    'approve' => 'موافقة',
+    'reject' => 'رفض',
+    'justNow' => 'الآن',
+    'seen' => 'مقروئه',
+];

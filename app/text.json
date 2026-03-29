@@ -1,0 +1,39 @@
+{
+    categories: [
+        "categore 1":[
+            "sub cat 1":[
+                elemnt:[
+                    type:"text",
+                    title:"All",
+                    required:true,
+                    note:"All items",
+                    presets:[
+                        "All":"this is dummy text",
+                        "All12":"this is dummy text",
+
+                    ]
+                ],
+                elemnt2:[
+                    type:"dropdown",
+                    title:"first",
+
+                    required:true,
+                    note:"All items2",
+                    options:[
+                        "All":"this is dummy text",
+                        "All12":"this is dummy text",
+
+                    ]
+                    presets:[
+                        "All":"this is dummy text",
+                        "All12":"this is dummy text",
+
+                    ]
+                ],
+            ]
+        ]
+
+      
+    
+    ]
+}

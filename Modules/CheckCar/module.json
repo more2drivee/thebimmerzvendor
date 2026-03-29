@@ -1,0 +1,11 @@
+{
+    "name": "CheckCar",
+    "alias": "checkcar",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CheckCar\\Providers\\CheckCarServiceProvider"
+    ],
+    "files": []
+}

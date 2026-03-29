@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification System Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+        #console {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 Notification System Test Interface</h1>
+        <p>Test different notification targeting options for your Firebase and database notifications.</p>
+    </div>
+
+    <div class="container">
+        <h2>📊 System Status</h2>
+        <div class="test-section">
+            <button onclick="checkFirebaseConfig()">Check Firebase Config</button>
+            <button onclick="getAvailableOptions()">Load Roles & Permissions</button>
+            <div id="status-result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🎯 Notification Tests</h2>
+        
+        <div class="test-section">
+            <h3>🔍 Debug Information</h3>
+            <p>Check current FCM tokens and system status.</p>
+            <button onclick="debugTokens()">Debug FCM Tokens</button>
+            <button onclick="testBraveCompatibility()">Test Brave Browser</button>
+            <div id="debug-result"></div>
+        </div>
+
+        <!-- Test All Users -->
+        <div class="test-section">
+            <h3>📢 Send to All Users</h3>
+            <p>Sends notification to every user in the system.</p>
+            <button onclick="testAllUsers()">Send to All Users</button>
+            <div id="all-users-result"></div>
+        </div>
+
+        <!-- Test Admins -->
+        <div class="test-section">
+            <h3>👑 Send to Admins Only</h3>
+            <p>Sends notification only to users with Admin role.</p>
+            <button onclick="testAdmins()">Send to Admins</button>
+            <div id="admins-result"></div>
+        </div>
+
+        <!-- Test Booking Users -->
+        <div class="test-section">
+            <h3>📅 Send to Booking Users</h3>
+            <p>Sends notification to users with booking permissions (crud_all_bookings, crud_own_bookings).</p>
+            <button onclick="testBookingUsers()">Send to Booking Users</button>
+            <div id="booking-users-result"></div>
+        </div>
+
+        <!-- Test Specific Users -->
+        <div class="test-section">
+            <h3>👤 Send to Specific Users</h3>
+            <p>Sends notification to specific user IDs.</p>
+            <div class="input-group">
+                <label>User IDs:</label>
+                <input type="text" id="user-ids" placeholder="e.g., 1,2,3" />
+                <small>(comma-separated)</small>
+            </div>
+            <button onclick="testSpecificUsers()">Send to Specific Users</button>
+            <div id="specific-users-result"></div>
+        </div>
+
+        <!-- Test Roles -->
+        <div class="test-section">
+            <h3>🎭 Send to Users with Specific Roles</h3>
+            <p>Sends notification to users with selected roles.</p>
+            <div class="input-group">
+                <label>Roles:</label>
+                <select id="roles-select" multiple style="height: 100px; width: 300px;">
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Employee">Employee</option>
+                </select>
+            </div>
+            <button onclick="testRoles()">Send to Selected Roles</button>
+            <div id="roles-result"></div>
+        </div>
+
+        <!-- Test Permissions -->
+        <div class="test-section">
+            <h3>🔐 Send to Users with Specific Permissions</h3>
+            <p>Sends notification to users with selected permissions.</p>
+            <div class="input-group">
+                <label>Permissions:</label>
+                <select id="permissions-select" multiple style="height: 100px; width: 300px;">
+                    <option value="crud_all_bookings">crud_all_bookings</option>
+                    <option value="crud_own_bookings">crud_own_bookings</option>
+                    <option value="user.create">user.create</option>
+                    <option value="user.update">user.update</option>
+                </select>
+            </div>
+            <button onclick="testPermissions()">Send to Selected Permissions</button>
+            <div id="permissions-result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📝 Console Log</h2>
+        <div id="console"></div>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <script>
+        let availableRoles = [];
+        let availablePermissions = [];
+
+        function log(message) {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            console.innerHTML += `[${timestamp}] ${message}\n`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+        }
+
+        function showResult(elementId, success, message, data = null) {
+            const element = document.getElementById(elementId);
+            element.className = `result ${success ? 'success' : 'error'}`;
+            element.innerHTML = message;
+            if (data) {
+                element.innerHTML += `<br><small>${JSON.stringify(data, null, 2)}</small>`;
+            }
+        }
+
+        async function checkFirebaseConfig() {
+            try {
+                log('Checking Firebase configuration...');
+                const response = await fetch('/api/firebase/config');
+                const data = await response.json();
+                
+                log(`Firebase config: ${JSON.stringify(data)}`);
+                showResult('status-result', data.enabled, 
+                    `Firebase ${data.enabled ? 'enabled' : 'disabled'}. Project: ${data.project_id}`, data);
+            } catch (error) {
+                log(`Error checking Firebase config: ${error.message}`);
+                showResult('status-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function getAvailableOptions() {
+            try {
+                log('Loading available roles and permissions...');
+                const response = await fetch('/api/notifications/test/options');
+                const data = await response.json();
+                
+                availableRoles = data.roles || [];
+                availablePermissions = data.permissions || [];
+                
+                // Update role select
+                const roleSelect = document.getElementById('roles-select');
+                roleSelect.innerHTML = '';
+                availableRoles.forEach(role => {
+                    const option = document.createElement('option');
+                    option.value = role;
+                    option.textContent = role;
+                    roleSelect.appendChild(option);
+                });
+                
+                // Update permission select
+                const permissionSelect = document.getElementById('permissions-select');
+                permissionSelect.innerHTML = '';
+                availablePermissions.forEach(permission => {
+                    const option = document.createElement('option');
+                    option.value = permission;
+                    option.textContent = permission;
+                    permissionSelect.appendChild(option);
+                });
+                
+                log(`Loaded ${availableRoles.length} roles and ${availablePermissions.length} permissions`);
+                showResult('status-result', true, 
+                    `Loaded ${availableRoles.length} roles and ${availablePermissions.length} permissions`);
+            } catch (error) {
+                log(`Error loading options: ${error.message}`);
+                showResult('status-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testAllUsers() {
+            try {
+                log('Testing notification to all users...');
+                const response = await fetch('/api/notifications/test/all-users', { method: 'POST' });
+                const data = await response.json();
+                
+                log(`All users test result: ${JSON.stringify(data)}`);
+                showResult('all-users-result', data.success, data.message);
+            } catch (error) {
+                log(`Error testing all users: ${error.message}`);
+                showResult('all-users-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testAdmins() {
+            try {
+                log('Testing notification to admins...');
+                const response = await fetch('/api/notifications/test/admins', { method: 'POST' });
+                const data = await response.json();
+                
+                log(`Admins test result: ${JSON.stringify(data)}`);
+                showResult('admins-result', data.success, data.message);
+            } catch (error) {
+                log(`Error testing admins: ${error.message}`);
+                showResult('admins-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testBookingUsers() {
+            try {
+                log('Testing notification to booking users...');
+                const response = await fetch('/api/notifications/test/booking-users', { method: 'POST' });
+                const data = await response.json();
+                
+                log(`Booking users test result: ${JSON.stringify(data)}`);
+                showResult('booking-users-result', data.success, data.message);
+            } catch (error) {
+                log(`Error testing booking users: ${error.message}`);
+                showResult('booking-users-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testSpecificUsers() {
+            try {
+                const userIdsInput = document.getElementById('user-ids').value;
+                if (!userIdsInput.trim()) {
+                    showResult('specific-users-result', false, 'Please enter user IDs');
+                    return;
+                }
+                
+                const userIds = userIdsInput.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
+                
+                log(`Testing notification to specific users: ${userIds.join(', ')}`);
+                const response = await fetch('/api/notifications/test/specific-users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_ids: userIds })
+                });
+                const data = await response.json();
+                
+                log(`Specific users test result: ${JSON.stringify(data)}`);
+                showResult('specific-users-result', data.success, data.message, data.target_users);
+            } catch (error) {
+                log(`Error testing specific users: ${error.message}`);
+                showResult('specific-users-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testRoles() {
+            try {
+                const roleSelect = document.getElementById('roles-select');
+                const selectedRoles = Array.from(roleSelect.selectedOptions).map(option => option.value);
+                
+                if (selectedRoles.length === 0) {
+                    showResult('roles-result', false, 'Please select at least one role');
+                    return;
+                }
+                
+                log(`Testing notification to roles: ${selectedRoles.join(', ')}`);
+                const response = await fetch('/api/notifications/test/roles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ roles: selectedRoles })
+                });
+                const data = await response.json();
+                
+                log(`Roles test result: ${JSON.stringify(data)}`);
+                showResult('roles-result', data.success, data.message, data.target_roles);
+            } catch (error) {
+                log(`Error testing roles: ${error.message}`);
+                showResult('roles-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testPermissions() {
+            try {
+                const permissionSelect = document.getElementById('permissions-select');
+                const selectedPermissions = Array.from(permissionSelect.selectedOptions).map(option => option.value);
+                
+                if (selectedPermissions.length === 0) {
+                    showResult('permissions-result', false, 'Please select at least one permission');
+                    return;
+                }
+                
+                log(`Testing notification to permissions: ${selectedPermissions.join(', ')}`);
+                const response = await fetch('/api/notifications/test/permissions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ permissions: selectedPermissions })
+                });
+                const data = await response.json();
+                
+                log(`Permissions test result: ${JSON.stringify(data)}`);
+                showResult('permissions-result', data.success, data.message, data.target_permissions);
+            } catch (error) {
+                log(`Error testing permissions: ${error.message}`);
+                showResult('permissions-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function debugTokens() {
+            try {
+                log('Debugging FCM tokens...');
+                const response = await fetch('/api/firebase/debug-tokens');
+                const data = await response.json();
+                
+                log(`Debug tokens result: ${JSON.stringify(data, null, 2)}`);
+                showResult('debug-result', true, 
+                    `Found ${data.active_tokens} active tokens out of ${data.total_tokens} total`, data);
+            } catch (error) {
+                log(`Error debugging tokens: ${error.message}`);
+                showResult('debug-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testBraveCompatibility() {
+            try {
+                log('Testing Brave browser compatibility...');
+                
+                const tests = {
+                    serviceWorker: 'serviceWorker' in navigator,
+                    notifications: 'Notification' in window,
+                    pushManager: 'PushManager' in window,
+                    firebase: typeof firebase !== 'undefined',
+                    messaging: typeof firebase !== 'undefined' && firebase.messaging,
+                    userAgent: navigator.userAgent.includes('Brave') || navigator.brave,
+                    permissions: await navigator.permissions?.query({name: 'notifications'}).then(p => p.state).catch(() => 'unknown')
+                };
+                
+                log(`Brave compatibility tests: ${JSON.stringify(tests, null, 2)}`);
+                
+                const allPassed = tests.serviceWorker && tests.notifications && tests.firebase && tests.messaging;
+                showResult('debug-result', allPassed, 
+                    `Brave compatibility: ${allPassed ? 'GOOD' : 'ISSUES FOUND'}`, tests);
+            } catch (error) {
+                log(`Error testing Brave compatibility: ${error.message}`);
+                showResult('debug-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Notification test interface loaded');
+            checkFirebaseConfig();
+            getAvailableOptions();
+        });
+    </script>
+</body>
+</html>

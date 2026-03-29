@@ -1,0 +1,58 @@
+<?php
+
+return [
+    'title' => 'حضور الفنيين',
+    'subtitle' => 'إدارة حضور الفنيين وحالة العمل',
+
+    'date' => 'التاريخ',
+    'filter' => 'تصفية',
+    'close' => 'إغلاق',
+    'back' => 'رجوع',
+    'actions' => 'الإجراءات',
+    'email' => 'البريد الإلكتروني',
+    'search' => 'بحث',
+    'select_at_least_one' => 'يرجى اختيار فني واحد على الأقل.',
+    'technician_id_not_found' => 'لم يتم العثور على معرف الفني. يرجى إعادة تحميل الصفحة.',
+    'technician_id_missing' => 'معرف الفني مفقود. لا يمكن إرسال الطلب.',
+    'not_available' => 'غير متوفر',
+    'present' => 'حاضر',
+    'absent' => 'غائب',
+    'on_leave' => 'في إجازة',
+
+    'clock_in_technician' => 'تسجيل دخول الفني',
+    'clock_out_technician' => 'تسجيل خروج الفني',
+    'clock_in_form' => 'نموذج تسجيل الدخول',
+    'clock_out_form' => 'نموذج تسجيل الخروج',
+    'clock_in' => 'تسجيل دخول',
+    'clock_out' => 'تسجيل خروج',
+    'clock_in_time' => 'وقت تسجيل الدخول',
+    'clock_out_time' => 'وقت تسجيل الخروج',
+
+    'select_technician' => 'اختر الفني',
+    'please_select' => 'يرجى الاختيار',
+    'leave_blank_for_current_time' => 'اتركه فارغاً للوقت الحالي',
+    'note' => 'ملاحظة',
+    'add_note' => 'أضف ملاحظة',
+    'history' => 'السجل',
+    'records' => 'سجلات الحضور',
+
+    'worked_hours' => 'ساعات العمل',
+    'attendance_status' => 'حالة الحضور',
+    'job_count' => 'عدد المهام',
+
+    'bulk_clock_in' => 'تسجيل دخول جماعي',
+    'bulk_clock_out' => 'تسجيل خروج جماعي',
+    'bulk_clock_in_help' => 'تسجيل دخول جميع الفنيين المحددين في الوقت المحدد.',
+    'bulk_clock_out_help' => 'تسجيل خروج جميع الفنيين المحددين في الوقت المحدد.',
+
+    'in' => 'دخول',
+    'out' => 'خروج',
+    'status' => 'الحالة',
+    'notes' => 'الملاحظات',
+    'per_page' => 'لكل صفحة',
+    'all_technicians' => 'جميع الفنيين',
+    'from_date' => 'من تاريخ',
+    'to_date' => 'إلى تاريخ',
+    'no_attendance_records_found' => 'لم يتم العثور على سجلات حضور تطابق المعايير المحددة.',
+    'total_technicians' => 'إجمالي الفنيين',
+];

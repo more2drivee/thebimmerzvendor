@@ -1,0 +1,23 @@
+{
+    "name": "twf/vinmanagement",
+    "description": "VIN Management module",
+    "authors": [
+        {
+            "name": "The Web Fosters",
+            "email": "thewebfosters@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\VinManagement\\Providers\\VinManagementServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\VinManagement\\": ""
+        }
+    }
+}

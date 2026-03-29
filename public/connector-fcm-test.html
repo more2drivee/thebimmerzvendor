@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connector API FCM Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #console {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .config-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Connector API FCM Test Interface</h1>
+        <p>Test FCM token management through the Connector API endpoints.</p>
+    </div>
+
+    <div class="container">
+        <h2>⚙️ Configuration</h2>
+        <div class="config-section">
+            <label for="api-url">API Base URL:</label>
+            <input type="text" id="api-url" value="https://erp.carserv.pro" placeholder="https://your-domain.com">
+            
+            <label for="auth-token">Auth Token:</label>
+            <input type="text" id="auth-token" placeholder="Bearer token for authentication">
+            
+            <label for="fcm-token">FCM Token (for manual testing):</label>
+            <textarea id="fcm-token" rows="3" placeholder="FCM token from Firebase"></textarea>
+            
+            <label for="device-info">Device Info:</label>
+            <input type="text" id="device-info" value="Web Browser Test" placeholder="Device information">
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>🧪 API Tests</h2>
+        
+        <!-- Register Token -->
+        <div class="test-section">
+            <h3>📝 Register FCM Token</h3>
+            <p>Register or update an FCM token for the authenticated user.</p>
+            <button onclick="registerToken()">Register Token</button>
+            <div id="register-result"></div>
+        </div>
+
+        <!-- Get Tokens -->
+        <div class="test-section">
+            <h3>📋 Get User Tokens</h3>
+            <p>Retrieve all FCM tokens for the authenticated user.</p>
+            <button onclick="getTokens()">Get Tokens</button>
+            <div id="get-tokens-result"></div>
+        </div>
+
+        <!-- Test Notification -->
+        <div class="test-section">
+            <h3>🔔 Send Test Notification</h3>
+            <p>Send a test notification to the authenticated user.</p>
+            <button onclick="sendTestNotification()">Send Test Notification</button>
+            <div id="test-notification-result"></div>
+        </div>
+
+        <!-- Update Token Status -->
+        <div class="test-section">
+            <h3>🔄 Update Token Status</h3>
+            <p>Activate or deactivate a specific token.</p>
+            <label for="token-id">Token ID:</label>
+            <input type="number" id="token-id" placeholder="Token ID">
+            <label>
+                <input type="checkbox" id="is-active" checked> Active
+            </label>
+            <br><br>
+            <button onclick="updateTokenStatus()">Update Status</button>
+            <div id="update-status-result"></div>
+        </div>
+
+        <!-- Delete Token -->
+        <div class="test-section">
+            <h3>🗑️ Delete Token</h3>
+            <p>Delete a specific FCM token.</p>
+            <label for="delete-token-id">Token ID:</label>
+            <input type="number" id="delete-token-id" placeholder="Token ID">
+            <br><br>
+            <button onclick="deleteToken()">Delete Token</button>
+            <div id="delete-result"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📝 Console Log</h2>
+        <div id="console"></div>
+        <button onclick="clearConsole()">Clear Console</button>
+    </div>
+
+    <script>
+        function log(message) {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            console.innerHTML += `[${timestamp}] ${message}\n`;
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '';
+        }
+
+        function showResult(elementId, success, message, data = null) {
+            const element = document.getElementById(elementId);
+            element.className = `result ${success ? 'success' : 'error'}`;
+            element.innerHTML = message;
+            if (data) {
+                element.innerHTML += `<br><small><pre>${JSON.stringify(data, null, 2)}</pre></small>`;
+            }
+        }
+
+        function getApiUrl() {
+            return document.getElementById('api-url').value.replace(/\/$/, '');
+        }
+
+        function getAuthToken() {
+            return document.getElementById('auth-token').value;
+        }
+
+        function getHeaders() {
+            const token = getAuthToken();
+            if (!token) {
+                throw new Error('Auth token is required');
+            }
+            
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            };
+        }
+
+        async function registerToken() {
+            try {
+                const fcmToken = document.getElementById('fcm-token').value;
+                const deviceInfo = document.getElementById('device-info').value;
+                
+                if (!fcmToken) {
+                    showResult('register-result', false, 'FCM token is required');
+                    return;
+                }
+
+                log('Registering FCM token...');
+                
+                const response = await fetch(`${getApiUrl()}/connector/api/fcm-tokens`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({
+                        fcm_token: fcmToken,
+                        device_info: deviceInfo
+                    })
+                });
+
+                const data = await response.json();
+                log(`Register token response: ${JSON.stringify(data)}`);
+                
+                showResult('register-result', data.success, data.message || 'Token registered', data.data);
+            } catch (error) {
+                log(`Error registering token: ${error.message}`);
+                showResult('register-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function getTokens() {
+            try {
+                log('Getting user tokens...');
+                
+                const response = await fetch(`${getApiUrl()}/connector/api/fcm-tokens`, {
+                    method: 'GET',
+                    headers: getHeaders()
+                });
+
+                const data = await response.json();
+                log(`Get tokens response: ${JSON.stringify(data)}`);
+                
+                if (data.success) {
+                    showResult('get-tokens-result', true, 
+                        `Found ${data.data.total_count} tokens`, data.data);
+                } else {
+                    showResult('get-tokens-result', false, data.message);
+                }
+            } catch (error) {
+                log(`Error getting tokens: ${error.message}`);
+                showResult('get-tokens-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function sendTestNotification() {
+            try {
+                log('Sending test notification...');
+                
+                const response = await fetch(`${getApiUrl()}/connector/api/fcm-tokens/test-notification`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+
+                const data = await response.json();
+                log(`Test notification response: ${JSON.stringify(data)}`);
+                
+                showResult('test-notification-result', data.success, data.message, data.data);
+            } catch (error) {
+                log(`Error sending test notification: ${error.message}`);
+                showResult('test-notification-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function updateTokenStatus() {
+            try {
+                const tokenId = document.getElementById('token-id').value;
+                const isActive = document.getElementById('is-active').checked;
+                
+                if (!tokenId) {
+                    showResult('update-status-result', false, 'Token ID is required');
+                    return;
+                }
+
+                log(`Updating token ${tokenId} status to ${isActive ? 'active' : 'inactive'}...`);
+                
+                const response = await fetch(`${getApiUrl()}/connector/api/fcm-tokens/${tokenId}/status`, {
+                    method: 'PATCH',
+                    headers: getHeaders(),
+                    body: JSON.stringify({
+                        is_active: isActive
+                    })
+                });
+
+                const data = await response.json();
+                log(`Update status response: ${JSON.stringify(data)}`);
+                
+                showResult('update-status-result', data.success, data.message, data.data);
+            } catch (error) {
+                log(`Error updating token status: ${error.message}`);
+                showResult('update-status-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function deleteToken() {
+            try {
+                const tokenId = document.getElementById('delete-token-id').value;
+                
+                if (!tokenId) {
+                    showResult('delete-result', false, 'Token ID is required');
+                    return;
+                }
+
+                if (!confirm(`Are you sure you want to delete token ${tokenId}?`)) {
+                    return;
+                }
+
+                log(`Deleting token ${tokenId}...`);
+                
+                const response = await fetch(`${getApiUrl()}/connector/api/fcm-tokens/${tokenId}`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+
+                const data = await response.json();
+                log(`Delete token response: ${JSON.stringify(data)}`);
+                
+                showResult('delete-result', data.success, data.message, data.data);
+            } catch (error) {
+                log(`Error deleting token: ${error.message}`);
+                showResult('delete-result', false, `Error: ${error.message}`);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Connector API FCM test interface loaded');
+            log('Please configure your API URL and auth token above');
+        });
+    </script>
+</body>
+</html>

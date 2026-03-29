@@ -1,0 +1,13 @@
+{
+    "name": "Treasury",
+    "alias": "treasury",
+    "description": "Treasury management module for tracking income, expenses and financial transactions",
+    "keywords": ["treasury", "finance", "accounting", "transactions"],
+    "priority": 0,
+    "providers": [
+        "Modules\\Treasury\\Providers\\TreasuryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

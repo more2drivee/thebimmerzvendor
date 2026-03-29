@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'blogs' => 'Blogs',
+    'manage_your_blogs' => 'Manage your blogs',
+    'all_your_blogs' => 'All your blogs',
+    'added_success' => 'Blog added successfully',
+    'updated_success' => 'Blog updated successfully',
+    'deleted_success' => 'Blog deleted successfully',
+    'add_blog' => 'Add Blog',
+    'edit_blog' => 'Edit Blog',
+    'title' => 'Title',
+    'title_ar' => 'Arabic Title',
+    'content' => 'Content',
+    'content_ar' => 'Arabic Content',
+    'image' => 'Image',
+    'blog_date' => 'Date',
+    'status' => 'Status',
+    'draft' => 'Draft',
+    'published' => 'Published',
+    'category' => 'Category',
+    'sub_category' => 'Sub Category',
+    'select_category' => 'Select Category',
+    'select_sub_category' => 'Select Sub Category',
+];

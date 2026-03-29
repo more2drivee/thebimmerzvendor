@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'notifications' => 'Notifications',
+    'unread' => 'Unread',
+    'total' => 'Total',
+    'search_placeholder' => 'Search notifications...',
+    'all' => 'All',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'noNotifications' => 'No notifications available',
+    'errorLoading' => 'Error loading notifications',
+    'noDataServer' => 'No data received from server',
+    'reservation' => 'Reservation',
+    'jobOrder' => 'Job Order',
+    'info' => 'Information',
+    'customer' => 'Customer',
+    'device' => 'Device',
+    'location' => 'Location',
+    'note' => 'Note',
+    'approve' => 'Approve',
+    'reject' => 'Reject',
+    'justNow' => 'Just now',
+    'seen' => 'Seen',
+];

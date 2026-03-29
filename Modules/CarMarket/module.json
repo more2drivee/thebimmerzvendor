@@ -1,0 +1,11 @@
+{
+    "name": "CarMarket",
+    "alias": "carmarket",
+    "description": "Car marketplace e-commerce module for buying and selling vehicles",
+    "keywords": ["cars", "marketplace", "vehicles", "ecommerce"],
+    "priority": 0,
+    "providers": [
+        "Modules\\CarMarket\\Providers\\CarMarketServiceProvider"
+    ],
+    "files": []
+}

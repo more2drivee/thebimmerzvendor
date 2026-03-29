@@ -1,0 +1,14 @@
+{
+    "name": "VinManagement",
+    "alias": "vinmanagement",
+    "description": "VIN Management tools: import, groups, campaigns, automation",
+    "keywords": ["vin", "management"],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\VinManagement\\Providers\\VinManagementServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

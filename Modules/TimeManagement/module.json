@@ -1,0 +1,14 @@
+{
+  "name": "TimeManagement",
+  "alias": "timemanagement",
+  "description": "Workshop time tracking dashboard (read-only)",
+  "keywords": [],
+  "active": 1,
+  "order": 0,
+  "providers": [
+    "Modules\\TimeManagement\\Providers\\TimeManagementServiceProvider"
+  ],
+  "aliases": {},
+  "files": [],
+  "requires": []
+}

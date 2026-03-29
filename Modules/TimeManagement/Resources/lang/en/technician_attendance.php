@@ -1,0 +1,63 @@
+<?php
+
+return [
+    'title' => 'Technician Attendance',
+    'subtitle' => 'Manage attendance and work status for technicians',
+
+    'technician' => 'Technician',
+    'name' => 'Name',
+    'email' => 'Email',
+    'date' => 'Date',
+    'from_date' => 'From Date',
+    'to_date' => 'To Date',
+    'per_page' => 'Per Page',
+    'filter' => 'Filter',
+    'search' => 'Search',
+    'actions' => 'Actions',
+    'close' => 'Close',
+    'back' => 'Back',
+    'total_technicians' => 'Total Technicians',
+
+    'present' => 'Present',
+    'absent' => 'Absent',
+    'on_leave' => 'On Leave',
+    'worked_hours' => 'Worked Hours',
+    'attendance_status' => 'Attendance Status',
+    'job_count' => 'Job Count',
+    'status' => 'Status',
+    'notes' => 'Notes',
+    'not_available' => 'N/A',
+
+    'clock_in' => 'Clock In',
+    'clock_out' => 'Clock Out',
+    'clock_in_time' => 'Clock In Time',
+    'clock_out_time' => 'Clock Out Time',
+    'clock_in_technician' => 'Clock In Technician',
+    'clock_out_technician' => 'Clock Out Technician',
+    'clock_in_form' => 'Clock In Form',
+    'clock_out_form' => 'Clock Out Form',
+    'history' => 'History',
+    'attendance_history' => 'Attendance History',
+    'attendance_records' => 'Attendance Records',
+
+    'select_technician' => 'Select Technician',
+    'please_select' => 'Please Select',
+    'leave_blank_for_current_time' => 'Leave blank for current time',
+    'note' => 'Note',
+    'add_note' => 'Add Note',
+
+    'bulk_clock_in' => 'Bulk Clock In',
+    'bulk_clock_out' => 'Bulk Clock Out',
+    'bulk_clock_in_help' => 'Clock in all selected technicians at the specified time.',
+    'bulk_clock_out_help' => 'Clock out all selected technicians at the specified time.',
+
+    'in' => 'In',
+    'out' => 'Out',
+    'all_technicians' => 'All Technicians',
+    'search_placeholder' => 'Search...',
+    'no_attendance_records_found' => 'No attendance records found for the selected criteria.',
+
+    'select_at_least_one' => 'Please select at least one technician.',
+    'technician_id_not_found' => 'Technician ID not found. Please refresh the page.',
+    'technician_id_missing' => 'Technician ID is missing. Cannot submit.',
+];
