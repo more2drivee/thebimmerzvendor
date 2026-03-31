@@ -102,4 +102,24 @@ class VendorController extends Controller
         {
             return $this->vendorService->getUnits();
         }
+
+        public function getSubcategories($id)
+        {
+            return $this->vendorService->getSubcategories($id);
+        }
+
+        public function productsByCAtegoryId(Request $request, $category_id): JsonResponse
+        {
+            $validated = $request->validate([
+                'business_id' => ['required', 'integer'],
+                'brand_id' => ['nullable', 'integer'],
+                'q' => ['nullable', 'string', 'max:191'],
+                'per_page' => ['nullable', 'integer', 'min:1', 'max:200'],
+                'car_brand_id' => ['nullable', 'integer'],
+                'car_year' => ['nullable', 'integer'],
+            ]);
+
+            $products = $this->vendorService->getProductsByCategoryId($category_id, $validated);
+            return response()->json($products);
+        }
 }

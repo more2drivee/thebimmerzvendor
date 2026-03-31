@@ -41,6 +41,13 @@
             <p class="help-block text-danger">{{ $errors->first('logo') }}</p>
         @endif
       </div>
+      <div class="form-group">
+        {!! Form::label('category_digram', __( 'Category Diagram' ) . ':') !!}
+        <input type="file" name="category_digram" id="category_digram" class="form-control" accept="image/*">
+        @if($errors->has('category_digram'))
+            <p class="help-block text-danger">{{ $errors->first('category_digram') }}</p>
+        @endif
+      </div>
       @if(!empty($parent_categories) && $enable_sub_category)
         <div class="form-group">
             <div class="checkbox">

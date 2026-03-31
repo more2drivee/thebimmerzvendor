@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Modules\Vendors\Http\Controllers\VendorController;
+use Modules\Connector\Http\Controllers\Api\PublicEcomController;
 use Modules\Vendors\Http\Controllers\ProductController;
+use Modules\Vendors\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,10 @@ Route::prefix('vendors')->group(function () {
         Route::get('/{id}', [VendorController::class, 'show']);
         Route::put('/{id}', [VendorController::class, 'update']);
         Route::delete('/{id}', [VendorController::class, 'destroy']);
+        Route::get('/ProductByCategory/{category_id}', [VendorController::class, 'productsByCAtegoryId']);
+        Route::get('/ecom-product/{id}',[PublicEcomController::class, 'productById']);
+         Route::get('/{category_id}/subcategories', [VendorController::class, 'getSubcategories']);
+
     });
     
 });

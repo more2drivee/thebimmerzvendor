@@ -20,6 +20,10 @@ class CommonResource extends JsonResource
             $data['logo'] = asset('storage/' . $data['logo']);
         }
 
+        if (!empty($data['category_digram'])) {
+            $data['category_digram'] = asset('storage/' . $data['category_digram']);
+        }
+
         return $data;
     }
 }

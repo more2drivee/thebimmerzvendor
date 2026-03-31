@@ -2,10 +2,12 @@
 
 namespace Modules\Vendors\Services;
 
+use App\Category;
 use App\Product;
 use App\Warranty;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Modules\Connector\Transformers\CommonResource;
 use Modules\Vendors\Entities\VendorsProduct;
 
 class VendorService
@@ -533,5 +535,122 @@ public function storeNewProductByVendor(array $data)
             Log::error('Error fetching units: ' . $e->getMessage());
             return response()->json(['error' => 'Failed to fetch units'], 500);
         }
+    }
+    
+
+          public function getSubcategories($category_id)
+    {
+
+        $parent_category = Category::where('id', $category_id) ->first();
+
+        if (!$parent_category) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Category not found'
+            ], 404);
+        }
+
+        $query = Category::where('parent_id', $category_id);
+
+        $name = request()->input('name');
+        if (! empty($name)) {
+            $query->where('name', 'like', '%'.$name.'%');
+        }
+
+        $subcategories = $query->paginate(10);
+
+        return CommonResource::collection($subcategories);
+    }
+
+    public function getProductsByCategoryId($category_id, array $validated)
+    {
+        $businessId = (int) $validated['business_id'];
+        $perPage = $validated['per_page'] ?? 20;
+
+        $query = Product::query()
+            ->where('products.business_id', $businessId)
+            ->where('products.virtual_product', 0)
+            ->where('products.category_id', $category_id)
+            ->where('products.not_for_selling', 0)
+            ->where('products.is_inactive', 0)
+            ->where('products.is_ecom', 1)
+            ->select([
+                'products.id',
+                'products.name',
+                'products.sku',
+                'products.image',
+                'products.brand_id',
+                'products.category_id',
+                'products.sub_category_id',
+                'products.weight',
+                'products.product_description',
+            ]);
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'shipping_details')) {
+            $query->addSelect('products.shipping_details');
+        }
+
+        $query->selectRaw('(
+                SELECT v.id
+                FROM variations v
+                WHERE v.product_id = products.id
+                ORDER BY v.id ASC
+                LIMIT 1
+            ) as variation_id')
+            ->selectRaw('(
+                SELECT v.default_sell_price
+                FROM variations v
+                WHERE v.product_id = products.id
+                ORDER BY v.id ASC
+                LIMIT 1
+            ) as default_sell_price');
+
+        if (!empty($validated['brand_id'])) {
+            $query->where('products.brand_id', $validated['brand_id']);
+        }
+
+        if (!empty($validated['car_brand_id']) || !empty($validated['car_year'])) {
+            $query->whereExists(function ($q) use ($validated) {
+                $q->select(DB::raw(1))
+                    ->from('product_compatibility')
+                    ->whereColumn('product_compatibility.product_id', 'products.id');
+
+                if (!empty($validated['car_brand_id'])) {
+                    $q->where('product_compatibility.brand_category_id', $validated['car_brand_id']);
+                }
+
+                if (!empty($validated['car_year'])) {
+                    $q->where('product_compatibility.from_year', '<=', $validated['car_year'])
+                        ->where('product_compatibility.to_year', '>=', $validated['car_year']);
+                }
+            });
+        }
+
+        if (!empty($validated['q'])) {
+            $search = trim($validated['q']);
+            $query->where(function ($q) use ($search) {
+                $q->where('products.name', 'like', "%{$search}%")
+                    ->orWhere('products.sku', 'like', "%{$search}%");
+            });
+        }
+
+        $products = $query->orderByDesc('products.id')->paginate($perPage);
+
+        $products->setCollection($products->getCollection()->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'sku' => $product->sku,
+                'variation_id' => $product->variation_id,
+                'default_sell_price' => (float) ($product->default_sell_price ?? 0),
+                'brand_id' => $product->brand_id,
+                'category_id' => $product->category_id,
+                'sub_category_id' => $product->sub_category_id,
+                'description' => strip_tags($product->product_description),
+                'image_url' => $product->image_url,
+            ];
+        }));
+
+        return $products;
     }
 }

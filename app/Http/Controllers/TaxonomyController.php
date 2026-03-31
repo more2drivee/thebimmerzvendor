@@ -300,6 +300,13 @@ class TaxonomyController extends Controller
                 $input['logo'] = $filePath;
             }
 
+            if ($request->hasFile('category_digram')) {
+                $fileName = time() . '_' . $request->file('category_digram')->getClientOriginalName();
+                $filePath = "categories/digrams/{$fileName}";
+                Storage::disk('public')->putFileAs('categories/digrams', $request->file('category_digram'), $fileName);
+                $input['category_digram'] = $filePath;
+            }
+
             $category = Category::create($input);
             $output = ['success' => true,
                 'data' => $category,
@@ -393,6 +400,17 @@ class TaxonomyController extends Controller
                     $category->logo = $filePath;
                     if (!empty($old_logo)) {
                         Storage::disk('public')->delete($old_logo);
+                    }
+                }
+
+                if ($request->hasFile('category_digram')) {
+                    $old_digram = $category->category_digram;
+                    $fileName = time() . '_' . $request->file('category_digram')->getClientOriginalName();
+                    $filePath = "categories/digrams/{$fileName}";
+                    Storage::disk('public')->putFileAs('categories/digrams', $request->file('category_digram'), $fileName);
+                    $category->category_digram = $filePath;
+                    if (!empty($old_digram)) {
+                        Storage::disk('public')->delete($old_digram);
                     }
                 }
 
