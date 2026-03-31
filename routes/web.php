@@ -822,6 +822,9 @@ Route::middleware(['setData', 'auth', 'SetSessionData', 'language', 'timezone', 
     // Route::get('/treasury/expense', [\App\Http\Controllers\ExpenseController::class, 'create'])->name('treasury.expense');
 });
 
+// Public Product Compatibility Route (no auth required)
+Route::get('/products/compatibility/{id}', [ProductController::class, 'getProductCompatibility'])->name('products.compatibility.get');
+
 // Route::middleware(['EcomApi'])->prefix('api/ecom')->group(function () {
 //     Route::get('products/{id?}', [ProductController::class, 'getProductsApi']);
 //     Route::get('categories', [CategoryController::class, 'getCategoriesApi']);

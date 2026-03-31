@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Warranty extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'warranties';
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var array
@@ -37,7 +44,10 @@ class Warranty extends Model
 
         return $name;
     }
-
+public function productVendors()
+{
+    return $this->hasMany(ProductToVendor::class, 'warranty_id', 'id');
+}
     public function getEndDate($date)
     {
         $date_obj = \Carbon::parse($date);
