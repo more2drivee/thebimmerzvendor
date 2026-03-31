@@ -126,7 +126,6 @@ class VendorService
         $query = VendorsProduct::with(['product.brand', 'product.category', 'product.unit', 'warranty', 'country'])
             ->where('Vendor_id', $vendorId);
         
-        // Apply product filters via whereHas
         $hasProductFilters = isset($filters['search']) || isset($filters['name']) || isset($filters['sku']) ||
             isset($filters['category_id']) || isset($filters['sub_category_id']) || isset($filters['brand_id']) ||
             isset($filters['unit_id']) || isset($filters['business_id']) || isset($filters['is_inactive']) ||
