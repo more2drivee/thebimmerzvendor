@@ -568,9 +568,15 @@ public function storeNewProductByVendor(array $data)
         $perPage = $validated['per_page'] ?? 20;
 
         $query = Product::query()
+            ->with(['category', 'sub_category', 'sub_sub_category', 'sub_sub_sub_category'])
             ->where('products.business_id', $businessId)
             ->where('products.virtual_product', 0)
-            ->where('products.category_id', $category_id)
+            ->where(function ($q) use ($category_id) {
+                $q->where('products.category_id', $category_id)
+                    ->orWhere('products.sub_category_id', $category_id)
+                    ->orWhere('products.sub_sub_category_id', $category_id)
+                    ->orWhere('products.sub_sub_sub_category_id', $category_id);
+            })
             ->where('products.not_for_selling', 0)
             ->where('products.is_inactive', 0)
             ->where('products.is_ecom', 1)
@@ -616,7 +622,7 @@ public function storeNewProductByVendor(array $data)
                     ->whereColumn('product_compatibility.product_id', 'products.id');
 
                 if (!empty($validated['car_brand_id'])) {
-                    $q->where('product_compatibility.brand_category_id', $validated['car_brand_id']);
+                    $q->where('product_compatibility.model_id', $validated['car_brand_id']);
                 }
 
                 if (!empty($validated['car_year'])) {
@@ -636,7 +642,18 @@ public function storeNewProductByVendor(array $data)
 
         $products = $query->orderByDesc('products.id')->paginate($perPage);
 
-        $products->setCollection($products->getCollection()->map(function ($product) {
+        $products->setCollection($products->getCollection()->map(function ($product) use ($category_id) {
+            $matchedLevel = null;
+            if ($product->category_id == $category_id) {
+                $matchedLevel = 'category';
+            } elseif ($product->sub_category_id == $category_id) {
+                $matchedLevel = 'sub_category';
+            } elseif ($product->sub_sub_category_id == $category_id) {
+                $matchedLevel = 'sub_sub_category';
+            } elseif ($product->sub_sub_sub_category_id == $category_id) {
+                $matchedLevel = 'sub_sub_sub_category';
+            }
+
             return [
                 'id' => $product->id,
                 'name' => $product->name,
@@ -645,7 +662,14 @@ public function storeNewProductByVendor(array $data)
                 'default_sell_price' => (float) ($product->default_sell_price ?? 0),
                 'brand_id' => $product->brand_id,
                 'category_id' => $product->category_id,
+                'category_name' => $product->category?->name,
                 'sub_category_id' => $product->sub_category_id,
+                'sub_category_name' => $product->sub_category?->name,
+                'sub_sub_category_id' => $product->sub_sub_category_id,
+                'sub_sub_category_name' => $product->sub_sub_category?->name,
+                'sub_sub_sub_category_id' => $product->sub_sub_sub_category_id,
+                'sub_sub_sub_category_name' => $product->sub_sub_sub_category?->name,
+                'matched_category_level' => $matchedLevel,
                 'description' => strip_tags($product->product_description),
                 'image_url' => $product->image_url,
             ];
